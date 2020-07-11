@@ -1,0 +1,35 @@
+before:
+  hooks:
+    - go mod download
+builds:
+- env:
+  - CGO_ENABLED=0
+archives:
+- replacements:
+    darwin: Darwin
+    linux: Linux
+    windows: Windows
+    386: i386
+    amd64: x86_64
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
+brews:
+  - tap:
+      owner: elwin
+      name: homebrew-table
+
+    commit_author:
+      name: elwin
+      email: elwin.stephan@gmail.com
+
+    url_template: "https://github.com/elwin/table/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    homepage: "https://github.com/elwin/table"
+    description: "Print CSV and JSON documents in a table format."
