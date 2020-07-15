@@ -8,6 +8,7 @@ brew install elwin/table/table
 ```
 
 ### Go
+Requires a [go toolchain installation](https://golang.org/doc/install) to be present.
 ```console
 go get github.com/elwin/table
 ```
