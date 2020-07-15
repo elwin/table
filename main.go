@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -29,7 +28,7 @@ func run() error {
 	case "json":
 		parser = pkg.JSONParser{}
 	default:
-		return errors.New(fmt.Sprintf(`"%s" is not a supported parser`, *format))
+		return errors.Errorf(`"%s" is not a supported parser`, *format)
 	}
 
 	in := os.Stdin
@@ -42,10 +41,9 @@ func run() error {
 		in = inputFile
 	}
 
-
 	err := pkg.Format(parser, in, os.Stdout)
 	if err != nil {
-	    return  err
+		return err
 	}
 
 	return nil

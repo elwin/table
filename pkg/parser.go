@@ -9,15 +9,21 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
+// Parser describes an interface to Parse an arbitrary document into
+// our intermediate Content form.
 type Parser interface {
-	Parse(io.Reader) (content, error)
+	Parse(io.Reader) (Content, error)
 }
 
-type content struct {
+// Content is the intermediate representation before it is converted
+// to a table format.
+type Content struct {
 	header []string
 	rows   [][]string
 }
 
+// Format converts the content of the reader to a table format using
+// the supplied parser and writes it to the writer.
 func Format(p Parser, r io.Reader, w io.Writer) error {
 	c, err := p.Parse(r)
 	if err != nil {
@@ -29,35 +35,39 @@ func Format(p Parser, r io.Reader, w io.Writer) error {
 	return nil
 }
 
-type CSVParser struct {}
+// CSVParser is a parser implementation that parses CSV documents.
+type CSVParser struct{}
 
-func (CSVParser) Parse(reader io.Reader) (content, error) {
+// Parse converts the content of a reader to the Content representation.
+func (CSVParser) Parse(reader io.Reader) (Content, error) {
 	r := csv.NewReader(reader)
 
 	header, err := r.Read()
 	if err != nil {
-		return content{}, err
+		return Content{}, err
 	}
 
 	rows, err := r.ReadAll()
 	if err != nil {
-		return content{}, err
+		return Content{}, err
 	}
 
-	return content{
+	return Content{
 		header: header,
 		rows:   rows,
 	}, nil
 }
 
-type JSONParser struct {}
+// JSONParser is a parser implementation that parses JSON documents.
+type JSONParser struct{}
 
-func (JSONParser) Parse(reader io.Reader) (content, error) {
+// Parse converts the content of a reader to the Content representation.
+func (JSONParser) Parse(reader io.Reader) (Content, error) {
 	r := json.NewDecoder(reader)
 
 	var rows []map[string]string
 	if err := r.Decode(&rows); err != nil {
-		return content{}, err
+		return Content{}, err
 	}
 
 	headers := collectHeader(rows)
@@ -73,13 +83,13 @@ func (JSONParser) Parse(reader io.Reader) (content, error) {
 		outputRows = append(outputRows, outputRow)
 	}
 
-	return content{
+	return Content{
 		header: headers,
 		rows:   outputRows,
 	}, nil
 }
 
-func formatTable(c content, w io.Writer) {
+func formatTable(c Content, w io.Writer) {
 	table := tablewriter.NewWriter(w)
 	table.SetHeader(c.header)
 	table.AppendBulk(c.rows)

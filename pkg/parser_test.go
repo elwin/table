@@ -12,14 +12,14 @@ import (
 func Test_parseCSV(t *testing.T) {
 	tests := []struct {
 		input    string
-		expected content
+		expected Content
 	}{
 		{
 			input: `id,name,price
 1,apple,15
 2,banana,10
 `,
-			expected: content{
+			expected: Content{
 				header: []string{"id", "name", "price"},
 				rows: [][]string{
 					{"1", "apple", "15"},
@@ -38,14 +38,14 @@ func Test_parseCSV(t *testing.T) {
 func Test_parseJSON(t *testing.T) {
 	tests := []struct {
 		input    string
-		expected content
+		expected Content
 	}{
 		{
 			input: `[
 	{"id": "1", "name": "apple", "price": "15"},
 	{"id": "2", "name": "banana", "price": "10"}
 ]`,
-			expected: content{
+			expected: Content{
 				header: []string{"id", "name", "price"},
 				rows: [][]string{
 					{"1", "apple", "15"},
