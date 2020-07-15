@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/elwin/table/pkg"
-	"github.com/spf13/pflag"
 	"github.com/pkg/errors"
+	"github.com/spf13/pflag"
 )
 
 func main() {

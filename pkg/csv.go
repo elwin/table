@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"io"
+	"sort"
 
 	"github.com/olekukonko/tablewriter"
 )
@@ -60,6 +61,7 @@ func (JSONParser) Parse(reader io.Reader) (content, error) {
 	}
 
 	headers := collectHeader(rows)
+	sort.Strings(headers)
 	var outputRows [][]string
 
 	for _, row := range rows {
