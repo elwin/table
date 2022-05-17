@@ -24,7 +24,7 @@ changelog:
 brews:
   - tap:
       owner: elwin
-      name: homebrew-table
+      name: homebrew-tools
 
     commit_author:
       name: elwin

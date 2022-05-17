@@ -4,7 +4,7 @@
 ## Installation
 ### Homebrew
 ```console
-brew install elwin/table/table
+brew install elwin/tols/table
 ```
 
 ### Go
