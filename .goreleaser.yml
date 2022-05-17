@@ -33,3 +33,8 @@ brews:
     url_template: "https://github.com/elwin/table/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     homepage: "https://github.com/elwin/table"
     description: "Print CSV and JSON documents in a table format."
+snapcrafts:
+  -
+    summary: Table
+    description: "Print CSV and JSON documents in a table format."
+    publish: true
