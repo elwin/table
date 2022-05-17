@@ -7,6 +7,11 @@
 brew install elwin/tols/table
 ```
 
+### Snap
+```console
+snap install table
+```
+
 ### Go
 Requires a [go toolchain installation](https://golang.org/doc/install) to be present.
 ```console
