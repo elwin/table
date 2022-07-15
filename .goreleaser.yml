@@ -38,3 +38,4 @@ snapcrafts:
     summary: Table
     description: "Print CSV and JSON documents in a table format."
     publish: true
+    license: MIT
