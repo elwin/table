@@ -4,6 +4,9 @@ before:
 builds:
 - env:
   - CGO_ENABLED=0
+nfpms:
+  - id: packages # here we say that artifacts built with nfpm will be identified with `packages` string.
+    file_name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
 archives:
 - replacements:
     darwin: Darwin
@@ -39,3 +42,12 @@ snapcrafts:
     description: "Print CSV and JSON documents in a table format."
     publish: true
     license: MIT
+publishers:
+  - name: fury.io
+    # by specifying `packages` id here goreleaser will only use this publisher
+    # with artifacts identified by this id
+    ids:
+      - packages
+    dir: "{{ dir .ArtifactPath }}"
+    cmd: curl -F package=@{{ .ArtifactName }} https://{{ .Env.FURY_TOKEN }}@push.fury.io/netdevops/
+
