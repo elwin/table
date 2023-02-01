@@ -4,7 +4,7 @@
 ## Installation
 ### Homebrew
 ```console
-brew install elwin/tols/table
+brew install elwin/tools/table
 ```
 
 ### Snap
